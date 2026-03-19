@@ -5,7 +5,7 @@ pasta_aux = 'csv_auxiliares'
 if not os.path.exists(pasta_aux):
     os.makedirs(pasta_aux)
 
-df = pd.read_csv(r'Dataset\german_credit_data.csv')
+df = pd.read_csv(r'Dataset\german_credit_data.csv',index_col=0)
 
 # ================================ FUNÇÃO PADRÃO PARA CSV ========================================
 
