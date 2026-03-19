@@ -1,10 +1,28 @@
 import pandas as pd
 import os
 
-df = pd.read_csv('Dataset\german_credit_data.csv')
+pasta_aux = 'csv_auxiliares'
+if not os.path.exists(pasta_aux):
+    os.makedirs(pasta_aux)
 
-print(df.head())
+df = pd.read_csv(r'Dataset\german_credit_data.csv')
 
+# ================================ FUNÇÃO PADRÃO PARA CSV ========================================
+
+def gerar_csv_contagem(df, column):
+    caminho_arquivo = os.path.join(pasta_aux, f'{column}.csv')
+    
+    if not os.path.exists(caminho_arquivo):
+        df_contagem = df[column].value_counts().reset_index()
+        df_contagem.columns = [column, 'Quantidade']
+        df_contagem = df_contagem.sort_values(by=column).reset_index(drop=True)
+        
+        df_contagem.to_csv(caminho_arquivo, index=False)
+        print(f"Arquivo {column}.csv criado com sucesso!")
+    else:
+        print(f"Arquivo {column}.csv já existe. Pulando geração.")
+
+# ================================ MEDIDAS DE CENTRALIZAÇÃO ========================================
 
 def media(df, column):
     return df[column].mean()
@@ -18,33 +36,29 @@ def moda(df, column):
 def Valores_Na_Null(df, column):
     return df[column].isna().sum()
 
+# ================================ IDADES ========================================
+
 def menores_de_idade(df, column):
     return df[df[column] < 18].shape[0]
 
-def criar_csv_idades_unicas_e_quantidade(df, column):
-
-    df_contagem = df[column].value_counts().reset_index()
-    df_contagem.columns = [column, 'Quantidade']
-    
-    df_contagem = df_contagem.sort_values(by=column).reset_index(drop=True)
-    
-    df_contagem.to_csv('idades_unicas_e_quantidade.csv', index=False)
-    return df_contagem
-
-if not os.path.exists('idades_unicas_e_quantidade.csv'):
-    criar_csv_idades_unicas_e_quantidade(df, 'Age')
-
+gerar_csv_contagem(df, 'Age')
 
 print("------------------IDADES------------------")
-print("Media:", media(df, 'Age'))
-print("Mediana:", mediana(df, 'Age'))   
-print("Moda:", moda(df, 'Age'))
-print("Valores NaN:", Valores_Na_Null(df, 'Age'))
-print("Menores de idade:", menores_de_idade(df, 'Age'))
-
-
+print(f"Media: {media(df, 'Age')}")
+print(f"Mediana: {mediana(df, 'Age')}")   
+print(f"Moda: {moda(df, 'Age')}")
+print(f"Valores NaN: {Valores_Na_Null(df, 'Age')}")
+print(f"Menores de idade: {menores_de_idade(df, 'Age')}")
 
 print("========================================\n")
+# ================================ SEXO ========================================
+
+gerar_csv_contagem(df, 'Sex')
+
 print("------------------SEXO------------------")
-print("Moda:", moda(df, 'Sex'))
-print("========================================\n")
+print(f"Moda: {moda(df, 'Sex')}")
+print(f"Valores NaN: {Valores_Na_Null(df, 'Sex')}")
+
+print("========================================\n") 
+
+# ================================ JOB ========================================
