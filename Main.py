@@ -7,6 +7,25 @@ if not os.path.exists(pasta_aux):
 
 df = pd.read_csv(r'Dataset\german_credit_data.csv',index_col=0)
 
+# ================================ FUNÇÃO PARA GERAR CSV DOS VALORES NaN ========================================
+
+def gerar_csv_nan(df):
+
+    if not os.path.exists(os.path.join(pasta_aux, 'relatorio_nan.csv')):    
+        if df['Checking account'].isnull().any() or df['Saving accounts'].isnull().any():
+            
+            filtro_nan = df['Checking account'].isnull() | df['Saving accounts'].isnull()
+            
+            df_nan = df[filtro_nan]
+            
+            caminho_nan = os.path.join(pasta_aux, 'relatorio_nan.csv')
+            df_nan.to_csv(caminho_nan)
+            print(f"Arquivo relatorio_nan.csv criado com sucesso!\n")
+            print(f"Total de linhas: {df_nan.shape[0]}\n")
+    else:
+        print(f"Arquivo relatorio_nan.csv já existe. Pulando geração.\n")
+    
+
 # ================================ FUNÇÃO PADRÃO PARA CSV ========================================
 
 def gerar_csv_contagem(df, column):
@@ -46,7 +65,7 @@ gerar_csv_contagem(df, 'Age')
 
 print("------------------IDADES------------------")
 print(f"Media: {media(df, 'Age')}")
-print(f"Mediana: {mediana(df, 'Age')}")   
+print(f"Mediana: {mediana(df, 'Age')}")  
 print(f"Moda: {moda(df, 'Age')}")
 print(f"Valores NaN: {Valores_Na_Null(df, 'Age')}")
 print(f"Menores de idade: {menores_de_idade(df, 'Age')}")
@@ -134,4 +153,6 @@ print(f"Valores NaN: {Valores_Na_Null(df, 'Purpose')}")
 
 print("========================================\n")
 
-# ================================ FIM ========================================
+# ========================================================================
+
+gerar_csv_nan(df)
