@@ -13,14 +13,15 @@ def gerar_csv_contagem(df, column):
     caminho_arquivo = os.path.join(pasta_aux, f'{column}.csv')
     
     if not os.path.exists(caminho_arquivo):
-        df_contagem = df[column].value_counts().reset_index()
+        df_contagem = df[column].value_counts(dropna=False).reset_index()
         df_contagem.columns = [column, 'Quantidade']
-        df_contagem = df_contagem.sort_values(by=column).reset_index(drop=True)
+        
+        df_contagem = df_contagem.sort_values(by=column, na_position='last').reset_index(drop=True)
         
         df_contagem.to_csv(caminho_arquivo, index=False)
-        print(f"Arquivo {column}.csv criado com sucesso!")
+        print(f"Arquivo {column}.csv criado com sucesso!\n")
     else:
-        print(f"Arquivo {column}.csv já existe. Pulando geração.")
+        print(f"Arquivo {column}.csv já existe. Pulando geração.\n")
 
 # ================================ MEDIDAS DE CENTRALIZAÇÃO ========================================
 
@@ -62,3 +63,75 @@ print(f"Valores NaN: {Valores_Na_Null(df, 'Sex')}")
 print("========================================\n") 
 
 # ================================ JOB ========================================
+gerar_csv_contagem(df, 'Job')
+
+print("------------------JOB------------------")
+print(f"Moda: {moda(df, 'Job')}")
+print(f"Valores NaN: {Valores_Na_Null(df, 'Job')}")
+
+print("========================================\n") 
+
+
+# ================================ HOUSING ========================================
+gerar_csv_contagem(df, 'Housing')
+
+print("------------------HOUSING------------------")
+print(f"Moda: {moda(df, 'Housing')}")
+print(f"Valores NaN: {Valores_Na_Null(df, 'Housing')}")
+
+print("========================================\n") 
+
+# ================================ SAVING ACCOUNT ========================================
+gerar_csv_contagem(df, 'Saving accounts')
+
+print("------------------SAVING ACCOUNT------------------")
+print(f"Moda: {moda(df, 'Saving accounts')}")
+print(f"Valores NaN: {Valores_Na_Null(df, 'Saving accounts')}")
+
+print("========================================\n")
+
+# ================================ CHECKING ACCOUNT ========================================
+gerar_csv_contagem(df, 'Checking account')
+
+print("------------------CHECKING ACCOUNT------------------")
+print(f"Moda: {moda(df, 'Checking account')}")
+print(f"Valores NaN: {Valores_Na_Null(df, 'Checking account')}")
+
+print("========================================\n")
+
+# ================================ CREDIT AMOUNT ========================================
+gerar_csv_contagem(df, 'Credit amount')
+
+print("------------------CREDIT AMOUNT------------------")
+print(f"Média: {media(df, 'Credit amount')}")
+print(f"Mediana: {mediana(df, 'Credit amount')}")
+print(f"Moda: {moda(df, 'Credit amount')}")
+print(f"Valores NaN: {Valores_Na_Null(df, 'Credit amount')}")
+
+print("========================================\n")
+
+
+# ================================ DURATION ========================================
+
+gerar_csv_contagem(df, 'Duration')
+
+print("------------------DURATION------------------")
+print(f"Média: {media(df, 'Duration')}")
+print(f"Mediana: {mediana(df, 'Duration')}")
+print(f"Moda: {moda(df, 'Duration')}")
+print(f"Valores NaN: {Valores_Na_Null(df, 'Duration')}")
+
+print("========================================\n")
+
+
+# ================================ PURPOSE ========================================
+
+gerar_csv_contagem(df, 'Purpose')
+
+print("------------------PURPOSE------------------")
+print(f"Moda: {moda(df, 'Purpose')}")
+print(f"Valores NaN: {Valores_Na_Null(df, 'Purpose')}")
+
+print("========================================\n")
+
+# ================================ FIM ========================================
