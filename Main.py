@@ -2,15 +2,15 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-from Funcoes.Funcoes_analises import analisar_coluna, analisa_NaN
+from Funcoes.Funcoes_analises import analisar_coluna
+from Funcoes.Funcoes_tratar import tratar,remover_duplicados
 
 df = pd.read_csv(r'Dataset\german_credit_data.csv',index_col=0)
+df_sem_duplicados = remover_duplicados(df)
+df_tratado = tratar(df_sem_duplicados)
 
 if __name__ == "__main__":
     
     for coluna in df.columns:
-        analisar_coluna(df, coluna)
+        analisar_coluna(df_tratado, coluna)
     
-    analisa_NaN(df)
-
-

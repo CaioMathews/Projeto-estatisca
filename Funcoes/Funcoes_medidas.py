@@ -9,5 +9,4 @@ def mediana(df, column):
 def moda(df, column):    
     return df[column].mode()[0]
 
-def Valores_Na_Null(df, column):
-    return df[column].isna().sum()
+# ================================ MEDIDAS DE DISPERSÃO E POSIÇÃO ======================================== PROXIMOS PASSOS...
