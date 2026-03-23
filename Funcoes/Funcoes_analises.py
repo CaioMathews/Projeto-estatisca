@@ -43,13 +43,10 @@ def analisar_correlação_spearman(df, col1, col2):
 
     print("\n" + "="*50)
     print(f"ANÁLISE DE CORRELAÇÃO (Spearman)")
-    print(f"Relação entre Valor do Crédito e Risco: {correlacao:.4f}")
+    print(f"Relação entre {col1} e {col2}: {correlacao:.4f}")
     print("="*50 + "\n")
-
+    
     if correlacao > 0:
         print("INTERPRETAÇÃO: Existe uma correlação positiva. Quanto MAIOR o crédito, MAIOR o risco.")
     else:
         print("INTERPRETAÇÃO: Não há evidência de que o valor alto aumente o risco nesta base.")
-
-
-# =================================== HIPOTESES ===========================================
