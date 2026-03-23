@@ -28,6 +28,10 @@ def tratar(df):
             print("Convertendo tipos de dados: Mapeando coluna JOB...")
             df[column] = converter_job_para_string(df[column])
 
+        if column == 'Credit amount':
+            print("Normalizando coluna 'Credit amount'...")
+            df = normalizar_min_max(df, column)
+
     return df
 
 # ================================ TRATAMENTO NaN ========================================
@@ -37,7 +41,7 @@ def Valores_Na_Null(df, column):
 
 def tratar_NaN(df, column):
     print(f"TRATANDO {column}...\n")
-    # fillna direto na coluna
+    
     coluna_tratada = df[column].fillna('No account')
     print(f"Coluna '{column}' tratada com 'No account'!\n")
     return coluna_tratada
@@ -53,3 +57,14 @@ def converter_job_para_string(coluna_job):
     }
 
     return coluna_job.map(mapeamento_job)
+
+# ================================ NORMALIZAÇÃO ========================================
+
+def normalizar_min_max(df, column):
+    min_val = df[column].min()
+    max_val = df[column].max()
+    
+    df[f'{column}_normalizado'] = (df[column] - min_val) / (max_val - min_val)
+    
+    print(f"Coluna '{column}' normalizada com sucesso!")
+    return df
