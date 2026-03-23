@@ -1,3 +1,5 @@
+import pandas as pd
+
 # ================================ MEDIDAS DE CENTRALIZAÇÃO ========================================
 
 def media(df, column):
@@ -9,7 +11,7 @@ def mediana(df, column):
 def moda(df, column):    
     return df[column].mode()[0]
 
-# ================================ MEDIDAS DEPOSIÇÃO ======================================== 
+# ================================ MEDIDAS DE POSIÇÃO ======================================== 
 def calcular_quartis(df, column):
     
     q = df[column].quantile([0.25, 0.5, 0.75])
@@ -20,3 +22,14 @@ def calcular_quartis(df, column):
         'Q3': q[0.75]
     }
 
+
+# ================================ MEDIDAS DE DISPERSÃO ======================================== 
+
+def calcular_desvio_padrao(df, column):
+    return df[column].std()
+
+def calcular_variancia(df, column):
+    return df[column].var()
+
+def calcular_amplitude(df, column):
+    return df[column].max() - df[column].min()

@@ -1,6 +1,6 @@
 import pandas as pd
 from Funcoes.Funcoes_csv import gerar_csv_contagem
-from Funcoes.Funcoes_medidas import calcular_quartis, media, mediana, moda
+from Funcoes.Funcoes_medidas import calcular_amplitude, calcular_desvio_padrao, calcular_quartis, calcular_variancia, media, mediana, moda
 
 def analisar_coluna(df, column):
 
@@ -15,10 +15,21 @@ def analisar_coluna(df, column):
         print(f"Mediana: {mediana(df, column)}")
     
     if column in ['Age', 'Credit amount', 'Duration']:
-        print("QUARTIS:")
-        quartis = calcular_quartis(df, column)
-        for quartil, valor in quartis.items():
-            print(f"{quartil}: {valor}")
-            
+
+        print("\n--- MEDIDAS DE POSIÇÃO ---\n")
+        
+        q = calcular_quartis(df, column)
+        print(f"Quartis: Q1: {q['Q1']} | Q2: {q['Q2']} | Q3: {q['Q3']}")
+        
+        print("\n--- MEDIDAS DE DISPERSÃO ---\n")
+        
+        dp = calcular_desvio_padrao(df, column)
+        var = calcular_variancia(df, column)
+        amp = calcular_amplitude(df, column)
+        
+        print(f"Desvio Padrão: {dp:.2f}")
+        print(f"Variância: {var:.2f}")
+        print(f"Amplitude Total: {amp}")
+        
     print("========================================\n")
 
