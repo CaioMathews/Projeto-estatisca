@@ -11,6 +11,6 @@ df_tratado = tratar(df_sem_duplicados)
 
 if __name__ == "__main__":
     
-    for coluna in df.columns:
+    for coluna in df_tratado.columns:
         analisar_coluna(df_tratado, coluna)
     
