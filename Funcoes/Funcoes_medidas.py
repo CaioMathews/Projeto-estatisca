@@ -33,3 +33,14 @@ def calcular_variancia(df, column):
 
 def calcular_amplitude(df, column):
     return df[column].max() - df[column].min()
+
+# ================================ CORRELAÇÃO DE SPEARMAN ========================================
+
+def calcular_correlacao_spearman(df, col1, col2):
+    
+    rank_col1 = df[col1].rank()
+    rank_col2 = df[col2].rank()
+    
+    correlacao = rank_col1.corr(rank_col2)
+    
+    return correlacao

@@ -1,6 +1,8 @@
 import pandas as pd
 from Funcoes.Funcoes_csv import gerar_csv_contagem
-from Funcoes.Funcoes_medidas import calcular_amplitude, calcular_desvio_padrao, calcular_quartis, calcular_variancia, media, mediana, moda
+from Funcoes.Funcoes_medidas import calcular_amplitude, calcular_correlacao_spearman, calcular_desvio_padrao, calcular_quartis, calcular_variancia, media, mediana, moda
+
+# ================================ ANALISES GERAIS ========================================
 
 def analisar_coluna(df, column):
 
@@ -33,3 +35,21 @@ def analisar_coluna(df, column):
         
     print("========================================\n")
 
+# ================================ ANALISAR CORRELAÇÃO DE SPEARMAN ========================================
+
+def analisar_correlação_spearman(df, col1, col2):
+    
+    correlacao = calcular_correlacao_spearman(df, col1, col2)
+
+    print("\n" + "="*50)
+    print(f"ANÁLISE DE CORRELAÇÃO (Spearman)")
+    print(f"Relação entre Valor do Crédito e Risco: {correlacao:.4f}")
+    print("="*50 + "\n")
+
+    if correlacao > 0:
+        print("INTERPRETAÇÃO: Existe uma correlação positiva. Quanto MAIOR o crédito, MAIOR o risco.")
+    else:
+        print("INTERPRETAÇÃO: Não há evidência de que o valor alto aumente o risco nesta base.")
+
+
+# =================================== HIPOTESES ===========================================

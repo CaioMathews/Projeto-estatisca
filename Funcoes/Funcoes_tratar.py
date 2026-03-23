@@ -32,6 +32,10 @@ def tratar(df):
             print("Normalizando coluna 'Credit amount'...")
             df = normalizar_min_max(df, column)
 
+        if column == 'Risk':
+            print("Criando coluna 'Risk' para numérica...")
+            df = converter_risk_para_risknum(df, column)
+
     return df
 
 # ================================ TRATAMENTO NaN ========================================
@@ -67,4 +71,19 @@ def normalizar_min_max(df, column):
     df[f'{column}_normalizado'] = (df[column] - min_val) / (max_val - min_val)
     
     print(f"Coluna '{column}' normalizada com sucesso!")
+    return df
+
+# ================================ CRIANDO RISK_NUM PARA CORRELAÇÃO DE SPEARMAN ========================================
+
+def converter_risk_para_risknum(df, column):
+
+    mapeamento_risk = {
+        'good': 0,
+        'bad': 1
+    }
+
+    df[f'{column}_num'] = df[column].map(mapeamento_risk)
+
+    print(f"Coluna '{column}' convertida para numérica ({column}_num) com sucesso!")
+
     return df
