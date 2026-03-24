@@ -1,6 +1,7 @@
 import os
 
 pasta_aux = 'csv_auxiliares'
+
 if not os.path.exists(pasta_aux):
     os.makedirs(pasta_aux)
 

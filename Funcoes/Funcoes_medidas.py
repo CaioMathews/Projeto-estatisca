@@ -22,7 +22,6 @@ def calcular_quartis(df, column):
         'Q3': q[0.75]
     }
 
-
 # ================================ MEDIDAS DE DISPERSÃO ======================================== 
 
 def calcular_desvio_padrao(df, column):
